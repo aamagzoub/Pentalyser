@@ -19,5 +19,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+
+private slots:
+    void browseFolders();
+    void readCsvFiles(QString);
 };
+
 #endif // MAINWINDOW_H

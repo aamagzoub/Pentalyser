@@ -6,124 +6,155 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>623</width>
-    <height>601</height>
+    <width>1568</width>
+    <height>579</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="closeAppBtn">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>500</y>
+      <x>1390</x>
+      <y>520</y>
       <width>151</width>
-      <height>32</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Exit</string>
+     <string>Close</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>8</y>
-      <width>401</width>
-      <height>21</height>
-     </rect>
+   <widget class="QLineEdit" name="pathLine">
+    <property name="enabled">
+     <bool>true</bool>
     </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>40</y>
-      <width>151</width>
-      <height>32</height>
+      <y>70</y>
+      <width>571</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="text">
-     <string>Start Pentalysing</string>
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
-   <widget class="QProgressBar" name="progressBar">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>43</y>
-      <width>401</width>
-      <height>23</height>
-     </rect>
+   <widget class="QPushButton" name="saveBtn">
+    <property name="enabled">
+     <bool>false</bool>
     </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>500</y>
+      <y>520</y>
       <width>151</width>
-      <height>32</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>Save Results as PDF</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>110</y>
-      <width>571</width>
+      <y>130</y>
+      <width>1521</width>
       <height>381</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="selectPathBtn">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>6</y>
-      <width>151</width>
-      <height>32</height>
+      <y>7</y>
+      <width>211</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Browse Files Location</string>
+     <string>Select Files Location</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="summaryLbl">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>23</x>
-      <y>82</y>
+      <y>110</y>
       <width>71</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Summary</string>
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pathLbl">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>291</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startPentalyserBtn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>66</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start Pentalyser</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>623</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
