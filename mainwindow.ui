@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PentaCam Data Analyser</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="closeAppBtn">
@@ -30,15 +30,15 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="pathLine">
+   <widget class="QLineEdit" name="defaultPathLine">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>571</width>
+      <x>190</x>
+      <y>10</y>
+      <width>391</width>
       <height>31</height>
      </rect>
     </property>
@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string> /Users/emagabu/workspace/Pentalyser/inputCsvFiles</string>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -74,27 +74,17 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>130</y>
-      <width>1521</width>
-      <height>381</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="selectPathBtn">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>7</y>
-      <width>211</width>
+      <y>54</y>
+      <width>151</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Select Files Location</string>
+     <string>Select Another Path</string>
     </property>
     <property name="default">
      <bool>true</bool>
@@ -103,36 +93,20 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="summaryLbl">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>23</x>
-      <y>110</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="pathLbl">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>50</y>
-      <width>291</width>
-      <height>16</height>
+      <y>16</y>
+      <width>121</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>  Default Files Path:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="startPentalyserBtn">
@@ -141,10 +115,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>66</y>
-      <width>151</width>
-      <height>41</height>
+      <x>765</x>
+      <y>7</y>
+      <width>141</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">
@@ -153,6 +127,127 @@
     <property name="default">
      <bool>true</bool>
     </property>
+   </widget>
+   <widget class="QPushButton" name="useDefulatPathBtn">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>6</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Use Default Path</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="selectedPathLine">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>58</y>
+      <width>391</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="setPathAsDefaultBtn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>55</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Set Default</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>1521</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>First Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Surname</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Date</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Time</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Eye</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cornea Front Rh</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cornea Front Rv</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Pachy Min</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>K Max (Front)</string>
+     </property>
+    </column>
    </widget>
   </widget>
  </widget>
