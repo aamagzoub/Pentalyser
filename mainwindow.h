@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "gettersandsetters.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -17,20 +18,31 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    float formulaFactor = 337.5;
+
     QString filesPath;
     QString defaultPath = ("/Users/emagabu/workspace/Pentalyser/inputCsvFiles");
 
+    void setUiButtons();
+    void populateTableRow(int row, const QString &firstname, const QString &surname, const QString &date, const QString &time, const QString &eye, const QMap<QString, QString> &extractedValues);
+    QString formatDate(const QString &rawDate);
+    QString formatTime(const QString &rawTime);
+    QString calculateFormula(const QString &value);
+    QStringList getCsvFiles(const QString &path);
+    QMap<QString, QString> parseCsvFile(const QString &filePath, QString &firstname, QString &surname, QString &date, QString &time, QString &eye);
+    void setupTableWidget();
 private:
     Ui::MainWindow *ui;
-    void setFilesPath(QString path);
-    QString getFilesPath();
-
+    gettersAndSetters *mpGettersAndSetters;
 private slots:
     void browseFolders();
-    void readCsvFiles(QString);
     void useDefaultPath();
-    void setPathAsDefault();
-    void startAnalysis();
+    void featureToBeIntroduced();
+    void countNumberOfRowsSelected();
+    void compareSelectedRows();
+    void showAverages();
+    void clearRowsSelection();
+    void readCsvFiles();
 };
 
 #endif // MAINWINDOW_H
