@@ -23,7 +23,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Pentalyser
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        gettersandsetters.h gettersandsetters.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Pentalyser APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
