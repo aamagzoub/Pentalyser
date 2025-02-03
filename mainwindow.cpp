@@ -136,9 +136,14 @@ void MainWindow::populateAveragesTable(const QMap<QString, QMap<QString, QList<d
         QStringList nameFields = nameData[it.key()];
         for (int i = 0; i < nameFields.size(); i++) {
             QTableWidgetItem *item = new QTableWidgetItem(nameFields[i]);
-            item->setTextAlignment(Qt::AlignCenter);
+            if (i < 2) {
+                item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter); // Align left for first two columns
+            } else {
+                item->setTextAlignment(Qt::AlignCenter);
+            }
             ui->tableWidget_2->setItem(row, i, item);
         }
+
 
         int col = 4;
         for (const QString &metric : {"Cornea Front Rh", "Cornea Front Rv", "Pachy Min", "K Max (Front)"}) {
@@ -176,9 +181,14 @@ void MainWindow::populateTableRow(int row, const QString &firstname, const QStri
     QStringList values = {surname, firstname, date, time, eye};
     for (int i = 0; i < values.size(); i++) {
         QTableWidgetItem *item = new QTableWidgetItem(values[i]);
-        item->setTextAlignment(Qt::AlignCenter);
+        if (i < 2) {
+            item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter); // Align left for first two columns
+        } else {
+            item->setTextAlignment(Qt::AlignCenter);
+        }
         ui->tableWidget->setItem(row, i, item);
     }
+
 
     QStringList labels = {"Cornea Front Rh", "Cornea Front Rv", "Pachy Min", "K Max (Front)"};
     int col = 5;
