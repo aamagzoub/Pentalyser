@@ -32,18 +32,17 @@ public:
     void populateTableRow(int row, const QString &firstname, const QString &surname, const QString &date, const QString &time, const QString &eye, const QMap<QString, QString> &extractedValues);
     void populateAveragesTable(const QMap<QString, QMap<QString, QList<double> > > &averagesData, const QMap<QString, QStringList> &nameData, const QMap<QString, int> &fileCounts);
     void populateSplitAveragesTables(const QMap<QString, QMap<QString, QList<double> > > &averagesData, const QMap<QString, QStringList> &nameData, const QMap<QString, int> &fileCounts);
-    //void calculateAveragesDiffTable(QTableWidget *sourceTable, QTableWidget *targetTable, QLabel *warningLabel);
-    void calculateAveragesDiffTable(QTableWidget *sourceTable, QTableWidget *targetTable, QLabel *warningLabel);
-
     void populateResultsTable(QTableWidget *targetTable, const QString &surname, const QString &firstname, const QString &eye, double diffK1, double diffK2, double diffPachyMin, double diffKMax, const QString &baselineDate, const QString &currentDate);
     void formatResultsTable(QTableWidget *table);
-    //void applyTableFormatting(QTableWidget *table);
-    void applyTableFormatting(QTableWidget *table, bool colorize);
     void populateTableWidget5WithAveragesAndDeltas(const QMap<QString, QMap<QString, QList<double> > > &averagesData, const QMap<QString, QStringList> &nameData);
+    void calculateAveragesDiffTable(QTableWidget *sourceTable, QLabel *warningLabel);
+    void applyTableFormatting(QTableWidget *table);
+    QString getdefaultSavePath();
+
 private:
     Ui::MainWindow *ui;
-    QString defaultPath = "/Users/emagabu/workspace/Pentalyser/csv_files";
-    // QString defaultPath = "$HOME/workspace/Pentalyser/csv_files";
+    QString defaultPath = "/Users/emagabu/workspace/Pentalyser/input_csv_files";
+    QString defaultSavePath = "/Users/emagabu/workspace/Pentalyser/output_csv_files";
     QString inputFilesPath;
 
 private slots:
@@ -56,6 +55,8 @@ private slots:
     void calculateAveragesDiff_2();
     void clearAllTables();
     void clearAllSelections();
+    void saveToCsvFile();
+    void openFileLocationInFinder();
 };
 
 #endif // MAINWINDOW_H
