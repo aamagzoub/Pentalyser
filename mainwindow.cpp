@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->calculateDiffBtn_2, &QPushButton::clicked, this, &MainWindow::calculateAveragesDiff_2);
     connect(ui->clearTablesBtn, &QPushButton::clicked, this, &MainWindow::clearAllTables);
     connect(ui->clearSelectionsBtn, &QPushButton::clicked, this, &MainWindow::clearAllSelections);
+
 }
 
 void MainWindow::applyTableFormatting(QTableWidget *table, bool colorize) {
@@ -57,12 +58,16 @@ void MainWindow::applyTableFormatting(QTableWidget *table, bool colorize) {
 }
 
 void MainWindow::calculateAveragesDiff() {
+    ui->tableWidget_3->clearContents();
+    ui->tableWidget_3->setRowCount(0);
     calculateAveragesDiffTable(ui->tableWidget_2, ui->tableWidget_3, ui->rowsSelectionWarningL);
     applyTableFormatting(ui->tableWidget_2, false);
     applyTableFormatting(ui->tableWidget_3, true);
 }
 
 void MainWindow::calculateAveragesDiff_2() {
+    ui->tableWidget_9->clearContents();
+    ui->tableWidget_9->setRowCount(0);
     calculateAveragesDiffTable(ui->tableWidget_4, ui->tableWidget_9, ui->rowsSelectionWarningL_2);
     applyTableFormatting(ui->tableWidget_4, false);
     applyTableFormatting(ui->tableWidget_9, true);
@@ -88,12 +93,12 @@ void MainWindow::onRowsSelectionChangedTable2() {
         if (nameMismatch) {
             ui->rowsSelectionWarningL->setText("WARNING: You have selected two different patients");
             ui->rowsSelectionWarningL->setStyleSheet("color: red;");
+            ui->calculateDiffBtn->setEnabled(false);
         } else {
             ui->rowsSelectionWarningL->clear();
             ui->rowsSelectionWarningL->setStyleSheet("");
+            ui->calculateDiffBtn->setEnabled(true);
         }
-
-        ui->calculateDiffBtn->setEnabled(!nameMismatch);
     } else {
         ui->rowsSelectionWarningL->clear();
         ui->rowsSelectionWarningL->setStyleSheet("");
@@ -120,12 +125,12 @@ void MainWindow::onRowsSelectionChangedTable4() {
         if (nameMismatch) {
             ui->rowsSelectionWarningL_2->setText("WARNING: You have selected two different patients");
             ui->rowsSelectionWarningL_2->setStyleSheet("color: red;");
+            ui->calculateDiffBtn_2->setEnabled(false);
         } else {
             ui->rowsSelectionWarningL_2->clear();
             ui->rowsSelectionWarningL_2->setStyleSheet("");
+            ui->calculateDiffBtn_2->setEnabled(true);
         }
-
-        ui->calculateDiffBtn_2->setEnabled(!nameMismatch);
     } else {
         ui->rowsSelectionWarningL_2->clear();
         ui->rowsSelectionWarningL_2->setStyleSheet("");
@@ -134,10 +139,10 @@ void MainWindow::onRowsSelectionChangedTable4() {
 }
 
 void MainWindow::calculateAveragesDiffTable(QTableWidget *sourceTable, QTableWidget *targetTable, QLabel *warningLabel) {
-    warningLabel->clear(); // Clear previous warnings
+    warningLabel->clear();
 
     QModelIndexList selectedRows = sourceTable->selectionModel()->selectedRows();
-    if (selectedRows.count() != 2) return; // Ensure exactly two rows are selected
+    if (selectedRows.count() != 2) return;
 
     int row1 = selectedRows.at(0).row();
     int row2 = selectedRows.at(1).row();
@@ -161,7 +166,6 @@ void MainWindow::calculateAveragesDiffTable(QTableWidget *sourceTable, QTableWid
     QDate dateObj1 = QDate::fromString(date1, "dd-MM-yyyy");
     QDate dateObj2 = QDate::fromString(date2, "dd-MM-yyyy");
 
-    // Ensure baseline (older date) and recent (newer date)
     QString baselineDate = (dateObj1 <= dateObj2) ? date1 : date2;
     QString recentDate = (dateObj1 > dateObj2) ? date1 : date2;
 
@@ -191,9 +195,11 @@ void MainWindow::calculateAveragesDiffTable(QTableWidget *sourceTable, QTableWid
     targetTable->setItem(newRow, 5, new QTableWidgetItem(QString::number(diffPachyMin, 'f', 2)));
     targetTable->setItem(newRow, 6, new QTableWidgetItem(QString::number(diffKMax, 'f', 2)));
 
-    // Assign baseline and recent correctly
-    targetTable->setItem(newRow, 7, new QTableWidgetItem(baselineDate)); // Baseline
-    targetTable->setItem(newRow, 8, new QTableWidgetItem(recentDate));   // Recent
+    targetTable->setItem(newRow, 7, new QTableWidgetItem(baselineDate));
+    targetTable->setItem(newRow, 8, new QTableWidgetItem(recentDate));
+
+    sourceTable->clearSelection();
+    targetTable->scrollToBottom();
 }
 
 void MainWindow::browseFolders() {
@@ -346,7 +352,8 @@ QMap<QString, QString> MainWindow::parseCsvFile(const QString &filePath, QString
     }
 
     QTextStream in(&file);
-    QStringList labels = {"Cornea Front Rh", "Cornea Front Rv", "Pachy Min", "K Max (Front)"};
+    QStringList labels = {"Cornea Front Rh", "Cornea Front Rv", "Pachy Min", "K Max (Front)", "QS Error"};
+
     while (!in.atEnd()) {
         QStringList parts = in.readLine().split(';');
         if (parts.size() >= 2) {
@@ -360,7 +367,6 @@ QMap<QString, QString> MainWindow::parseCsvFile(const QString &filePath, QString
     file.close();
     return extractedValues;
 }
-
 
 
 void MainWindow::populateAveragesTable(const QMap<QString, QMap<QString, QList<double>>> &averagesData,
@@ -447,20 +453,19 @@ void MainWindow::clearAllSelections() {
 void MainWindow::populateTableRow(int row, const QString &firstname, const QString &surname,
                                   const QString &date, const QString &time, const QString &eye,
                                   const QMap<QString, QString> &extractedValues) {
-    QStringList values = {surname, firstname, date, time, eye};
+    QStringList values = {surname, firstname, date, time, eye, extractedValues.value("QS Error", "N/A")};
     for (int i = 0; i < values.size(); i++) {
         QTableWidgetItem *item = new QTableWidgetItem(values[i]);
         if (i < 2) {
-            item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter); // Align left for first two columns
+            item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         } else {
             item->setTextAlignment(Qt::AlignCenter);
         }
         ui->tableWidget->setItem(row, i, item);
     }
 
-
     QStringList labels = {"Cornea Front Rh", "Cornea Front Rv", "Pachy Min", "K Max (Front)"};
-    int col = 5;
+    int col = 6;
     for (const QString &label : labels) {
         QString value = extractedValues.value(label, "N/A");
         QTableWidgetItem *item = new QTableWidgetItem(value);

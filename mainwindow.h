@@ -39,9 +39,11 @@ public:
     void formatResultsTable(QTableWidget *table);
     //void applyTableFormatting(QTableWidget *table);
     void applyTableFormatting(QTableWidget *table, bool colorize);
+    void populateTableWidget5WithAveragesAndDeltas(const QMap<QString, QMap<QString, QList<double> > > &averagesData, const QMap<QString, QStringList> &nameData);
 private:
     Ui::MainWindow *ui;
-    QString defaultPath = "/Users/emagabu/workspace/Pentalyser/inputCsvFiles";
+    QString defaultPath = "/Users/emagabu/workspace/Pentalyser/csv_files";
+    // QString defaultPath = "$HOME/workspace/Pentalyser/csv_files";
     QString inputFilesPath;
 
 private slots:
