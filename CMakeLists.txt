@@ -1,6 +1,9 @@
 # Minimum CMake version required
 cmake_minimum_required(VERSION 3.16)
 
+# Set macOS Deployment Target (to support older macOS versions)
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13")  # Change to "11.0" for Big Sur or "12.0" for Monterey
+
 # Project name and settings
 project(Pentalyser VERSION 0.1 LANGUAGES CXX)
 
