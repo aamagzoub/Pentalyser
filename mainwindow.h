@@ -41,8 +41,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QString defaultPath = "/Users/emagabu/workspace/Pentalyser/input_csv_files";
-    QString defaultSavePath = "/Users/emagabu/workspace/Pentalyser/output_csv_files";
+    //QString defaultPath = "/Users/emagabu/workspace/Pentalyser/input_csv_files";
+    //QString defaultSavePath = "/Users/emagabu/workspace/Pentalyser/output_csv_files";
+    QString defaultPath = "/Users/mahmoud/workspace/pentalyser/input_csv_files";
+    QString defaultSavePath = "/Users/mahmoud/workspace/pentalyser/output_csv_files";
     QString inputFilesPath;
 
 private slots:

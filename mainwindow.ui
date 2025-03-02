@@ -530,32 +530,72 @@
                </column>
                <column>
                 <property name="text">
-                 <string>Baseline Date</string>
+                 <string>B-Date</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>Recent Date</string>
+                 <string>B-K1</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>K1</string>
+                 <string>B-K2</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>K2</string>
+                 <string>B-Pachy Min</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>Pachy Min</string>
+                 <string>B-K Max</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>K Max</string>
+                 <string>R-Date</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>R-K1</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>R-K2</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>R-Pachy Min</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>R-K Max</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>D-K1</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>D-K2</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>D-Pachy Min</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>D-K Max</string>
                 </property>
                </column>
               </widget>

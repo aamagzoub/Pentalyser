@@ -241,6 +241,7 @@ void MainWindow::populateSplitAveragesTables(const QMap<QString, QMap<QString, Q
     }
 }
 
+
 void MainWindow::populateAveragesTable(const QMap<QString, QMap<QString, QList<double>>> &averagesData,
                                        const QMap<QString, QStringList> &nameData,
                                        const QMap<QString, int> &fileCounts) {
@@ -258,7 +259,6 @@ void MainWindow::populateAveragesTable(const QMap<QString, QMap<QString, QList<d
             }
             ui->tableWidget_2->setItem(row, i, item);
         }
-
 
         int col = 4;
         for (const QString &metric : {"Cornea Front Rh", "Cornea Front Rv", "Pachy Min", "K Max (Front)"}) {
@@ -338,9 +338,6 @@ void MainWindow::clearAllSelections() {
     ui->rowsSelectionWarningL->clear();
     ui->rowsSelectionWarningL_2->clear();
 }
-
-
-#include <QDir> // Ensure this is included for directory handling
 
 void MainWindow::saveToCsvFile() {
     // Check if tableWidget_5 is empty
@@ -454,55 +451,76 @@ void MainWindow::calculateAveragesDiffTable(QTableWidget *sourceTable, QLabel *w
     QDate dateObj1 = QDate::fromString(date1, "dd-MM-yyyy");
     QDate dateObj2 = QDate::fromString(date2, "dd-MM-yyyy");
 
-    QString baselineDate = (dateObj1 <= dateObj2) ? date1 : date2;
-    QString recentDate = (dateObj1 > dateObj2) ? date1 : date2;
+    bool isRow1Baseline = (dateObj1 <= dateObj2);
+    int baselineRow = isRow1Baseline ? row1 : row2;
+    int recentRow = isRow1Baseline ? row2 : row1;
+
+    QString baselineDate = sourceTable->item(baselineRow, 2)->text();
+    QString recentDate = sourceTable->item(recentRow, 2)->text();
 
     // Clear previous selections before checking for duplicates
     ui->tableWidget_5->clearSelection();
 
-    // Check for duplicates and highlight the existing row if found
+    // Check for duplicates in tableWidget_5
     for (int row = 0; row < ui->tableWidget_5->rowCount(); ++row) {
         if (ui->tableWidget_5->item(row, 0)->text() == surname1 &&
             ui->tableWidget_5->item(row, 1)->text() == firstname1 &&
             ui->tableWidget_5->item(row, 2)->text() == eye1 &&
             ui->tableWidget_5->item(row, 3)->text() == baselineDate &&
-            ui->tableWidget_5->item(row, 4)->text() == recentDate) {
+            ui->tableWidget_5->item(row, 8)->text() == recentDate) {
 
-            // Select and highlight the existing row
+            // Highlight existing row and return
             ui->tableWidget_5->selectRow(row);
             ui->tableWidget_5->scrollToItem(ui->tableWidget_5->item(row, 0));
-
-            return; // Stop here to prevent adding a duplicate
+            sourceTable->clearSelection();
+            return;
         }
     }
 
-    double k1Recent = sourceTable->item(row1, 4)->text().toDouble();
-    double k2Recent = sourceTable->item(row1, 5)->text().toDouble();
-    double pachyMinRecent = sourceTable->item(row1, 6)->text().toDouble();
-    double kMaxRecent = sourceTable->item(row1, 7)->text().toDouble();
+    double bK1 = sourceTable->item(baselineRow, 4)->text().toDouble();
+    double bK2 = sourceTable->item(baselineRow, 5)->text().toDouble();
+    double bPachyMin = sourceTable->item(baselineRow, 6)->text().toDouble();
+    double bKMax = sourceTable->item(baselineRow, 7)->text().toDouble();
 
-    double k1Baseline = sourceTable->item(row2, 4)->text().toDouble();
-    double k2Baseline = sourceTable->item(row2, 5)->text().toDouble();
-    double pachyMinBaseline = sourceTable->item(row2, 6)->text().toDouble();
-    double kMaxBaseline = sourceTable->item(row2, 7)->text().toDouble();
+    double rK1 = sourceTable->item(recentRow, 4)->text().toDouble();
+    double rK2 = sourceTable->item(recentRow, 5)->text().toDouble();
+    double rPachyMin = sourceTable->item(recentRow, 6)->text().toDouble();
+    double rKMax = sourceTable->item(recentRow, 7)->text().toDouble();
 
-    double diffK1 = k1Recent - k1Baseline;
-    double diffK2 = k2Recent - k2Baseline;
-    double diffPachyMin = pachyMinRecent - pachyMinBaseline;
-    double diffKMax = kMaxRecent - kMaxBaseline;
+    double dK1 = rK1 - bK1;
+    double dK2 = rK2 - bK2;
+    double dPachyMin = rPachyMin - bPachyMin;
+    double dKMax = rKMax - bKMax;
 
     int newRow = ui->tableWidget_5->rowCount();
     ui->tableWidget_5->insertRow(newRow);
 
-    ui->tableWidget_5->setItem(newRow, 0, new QTableWidgetItem(surname1));
-    ui->tableWidget_5->setItem(newRow, 1, new QTableWidgetItem(firstname1));
-    ui->tableWidget_5->setItem(newRow, 2, new QTableWidgetItem(eye1));
-    ui->tableWidget_5->setItem(newRow, 3, new QTableWidgetItem(baselineDate));
-    ui->tableWidget_5->setItem(newRow, 4, new QTableWidgetItem(recentDate));
-    ui->tableWidget_5->setItem(newRow, 5, new QTableWidgetItem(QString::number(diffK1, 'f', 2)));
-    ui->tableWidget_5->setItem(newRow, 6, new QTableWidgetItem(QString::number(diffK2, 'f', 2)));
-    ui->tableWidget_5->setItem(newRow, 7, new QTableWidgetItem(QString::number(diffPachyMin, 'f', 2)));
-    ui->tableWidget_5->setItem(newRow, 8, new QTableWidgetItem(QString::number(diffKMax, 'f', 2)));
+    auto setItemWithColor = [&](int column, const QString &value, const QString &color) {
+        QTableWidgetItem *item = new QTableWidgetItem(value);
+        item->setBackground(QColor(color));
+        ui->tableWidget_5->setItem(newRow, column, item);
+    };
+
+    setItemWithColor(0, surname1, "white");
+    setItemWithColor(1, firstname1, "white");
+    setItemWithColor(2, eye1, "white");
+
+    setItemWithColor(3, baselineDate, "lightblue");
+    setItemWithColor(4, QString::number(bK1, 'f', 2), "lightblue");
+    setItemWithColor(5, QString::number(bK2, 'f', 2), "lightblue");
+    setItemWithColor(6, QString::number(bPachyMin, 'f', 2), "lightblue");
+    setItemWithColor(7, QString::number(bKMax, 'f', 2), "lightblue");
+
+    setItemWithColor(8, recentDate, "lightgreen");
+    setItemWithColor(9, QString::number(rK1, 'f', 2), "lightgreen");
+    setItemWithColor(10, QString::number(rK2, 'f', 2), "lightgreen");
+    setItemWithColor(11, QString::number(rPachyMin, 'f', 2), "lightgreen");
+    setItemWithColor(12, QString::number(rKMax, 'f', 2), "lightgreen");
+
+    setItemWithColor(13, QString::number(dK1, 'f', 2), "orange");
+    setItemWithColor(14, QString::number(dK2, 'f', 2), "orange");
+    setItemWithColor(15, QString::number(dPachyMin, 'f', 2), "orange");
+    setItemWithColor(16, QString::number(dKMax, 'f', 2), "orange");
 
     sourceTable->clearSelection();
     ui->tableWidget_5->scrollToBottom();
