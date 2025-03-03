@@ -1,11 +1,16 @@
 # Minimum CMake version required
 cmake_minimum_required(VERSION 3.16)
 
-# Set macOS Deployment Target (to support older macOS versions)
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13")  # Change to "11.0" for Big Sur or "12.0" for Monterey
+# Ensure Universal Binary (x86_64 for Intel, arm64 for Apple Silicon)
+set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
 
-# Project name and settings
+# Set macOS Deployment Target (to support older macOS versions)
+set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")  # Change as needed
+
+# Project name and settings (MUST come AFTER architecture setting)
 project(Pentalyser VERSION 0.1 LANGUAGES CXX)
+
+set(CMAKE_PREFIX_PATH "/Users/emagabu/Qt/6.8.1/macos/lib/cmake")
 
 # Enable Qt-specific automatic processing
 set(CMAKE_AUTOUIC ON)

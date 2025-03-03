@@ -336,7 +336,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QPushButton" name="calculateDiffBtn">
+              <widget class="QPushButton" name="calculateOdDiffBtn">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -361,7 +361,7 @@
               </widget>
              </item>
              <item row="1" column="1" colspan="5">
-              <widget class="QTableWidget" name="tableWidget_2">
+              <widget class="QTableWidget" name="odAveragesTw">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -497,7 +497,7 @@
            <item row="8" column="1">
             <layout class="QGridLayout" name="gridLayout_10">
              <item row="1" column="0" colspan="7">
-              <widget class="QTableWidget" name="tableWidget_5">
+              <widget class="QTableWidget" name="deltaTw">
                <property name="frameShape">
                 <enum>QFrame::Shape::Panel</enum>
                </property>
@@ -718,7 +718,7 @@
            <item row="6" column="1">
             <layout class="QGridLayout" name="gridLayout_11">
              <item row="2" column="0">
-              <widget class="QPushButton" name="calculateDiffBtn_2">
+              <widget class="QPushButton" name="calculateOsDiffBtn">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -743,7 +743,7 @@
               </widget>
              </item>
              <item row="1" column="0" colspan="5">
-              <widget class="QTableWidget" name="tableWidget_4">
+              <widget class="QTableWidget" name="osAveragesTw">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -924,7 +924,7 @@
               </widget>
              </item>
              <item row="1" column="0" colspan="4">
-              <widget class="QTableWidget" name="tableWidget">
+              <widget class="QTableWidget" name="allDataTw">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
