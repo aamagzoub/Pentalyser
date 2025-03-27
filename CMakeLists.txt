@@ -10,7 +10,11 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")  # Change as needed
 # Project name and settings (MUST come AFTER architecture setting)
 project(Pentalyser VERSION 0.1 LANGUAGES CXX)
 
+# To enable development and release for Apple Chip, uncomment the following line.
 set(CMAKE_PREFIX_PATH "/Users/emagabu/Qt/6.8.1/macos/lib/cmake")
+
+# To enable development and release for Intel Core processors, uncomment the following line.
+set(CMAKE_PREFIX_PATH "/Users/abubakrm/Qt/6.8.2/macos/lib/cmake")
 
 # Enable Qt-specific automatic processing
 set(CMAKE_AUTOUIC ON)
